@@ -1,0 +1,30 @@
+SHLIB = libstrshared.so
+STLIB = libstrstatic.a
+	
+CFLAGS = -fpic
+	
+OBJ = str.o
+	
+all: $(SHLIB) $(STLIB)
+	
+shared: $(SHLIB)
+	
+static: $(STLIB)
+	
+$(SHLIB): $(OBJ)
+	gcc -shared $(OBJ) -o $(SHLIB)
+	
+$(STLIB): $(OBJ)
+	ar rcs $(STLIB) $(OBJ)
+	
+str.o: str.c str.h
+	gcc -c $(CFLAGS) str.c
+	
+	
+.PHONY: clean
+	
+clean:
+	rm -f $(OBJ) $(SHLIB) $(STLIB)
+
+
+
